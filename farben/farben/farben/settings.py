@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=9jcoi&+b-s6o)lp=3_hmt!m%7_tr=oiwxz(*-d*^px+&)51s^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['farben-kursk.ru', 'www.farben-kursk.ru']
 
 AUTH_USER_MODEL = 'main.Seller'
 LOGIN_URL = '/auth/'
