@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        :root {
+        --primary-color: #4361ee;
+        --success-color: #06d6a0;
+        --error-color: #ef476f;
+        --text-color: #2b2d42;
+        --background-color: #f8f9fa;
+        --transition-speed: 0.3s;
+    }
+
+    .logout-btn {
+        background: #cc3009; /* Светлый фон */
+        color: #ffffff; /* Красный текст */
+        padding: 0.6rem 1.2rem;
+        border: 2px solid #dc3545; /* Красная рамка */
+        border-radius: 25px; /* Скругленные углы */
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        font-weight: 500;
+        display: flex;
+        display: flex;
+        align-items: center;       /* Центрирование по вертикали */
+        justify-content: center;  /* Добавлено центрирование по горизонтали */
+    }
+
+    .logout-btn:hover {
+        background: #830310; /* Красный фон при наведении */
+        color: white;
+        transform: scale(1.05); /* Легкое увеличение */
+        box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2); /* Тень */
+    }
+
+    /* Иконка выхода (можно использовать SVG или FontAwesome) */
+    .logout-btn::before {
+        font-weight: bold;
+        transform: rotate(180deg);
+        display: inline-block;
+    }
+    
+
+    body {
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        background-color: var(--background-color);
+        margin: 0;
+        padding: 2rem;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--text-color);
+    }
+    input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+}
+    .form-container {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 480px;
+        transition: transform 0.3s ease;
+    }
+
+    .form-container:hover {
+        transform: translateY(-2px);
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+        position: relative;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--text-color);
+        font-size: 0.9rem;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        width: 100%;
+        padding: 0.875rem;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all var(--transition-speed) ease;
+        background: #fff;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    }
+
+    input[type="text"]::placeholder,
+    input[type="number"]::placeholder {
+        color: #adb5bd;
+    }
+
+    #openModalBtn {
+        width: 100%;
+        padding: 1rem;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all var(--transition-speed) ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    #openModalBtn:hover {
+        background: #3651b5;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(67, 97, 238, 0.25);
+    }
+
+    #openModalBtn:active {
+        transform: translateY(0);
+        box-shadow: none;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 480px) {
+        .form-container {
+            padding: 1.5rem;
+            margin: 1rem;
+        }
+
+        body {
+            padding: 0;
+        }
+    }
+
+    /* Дополнительные элементы дизайна */
+    .form-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .form-header h2 {
+        color: var(--text-color);
+        margin: 0 0 0.5rem 0;
+        font-size: 1.5rem;
+    }
+
+    .form-header p {
+        color: #6c757d;
+        margin: 0;
+        font-size: 0.9rem;
+    }
+        /* Стили для модального окна */
+        .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    pointer-events: none; /* Блокируем события мыши для фона */
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 400px;
+    pointer-events: auto; /* Разрешаем события внутри контента */
+}
+.modal-active #mainForm {
+    pointer-events: none; /* Блокировка взаимодействия */
+    user-select: none; /* Запрет выделения текста */
+}
+
+        .alert-success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+/* error (ошибка) */
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+        .data-preview {
+        font-weight: 600;
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--success-color);
+        padding: 2px 5px;
+        }
+    #formErrors {
+    display: none;
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 480px;
+    z-index: 1000;
+}
+    </style>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post" class="logoutB">
+        {% csrf_token %}
+        <button type="submit" class="logout-btn" id="logoutBtn">Выйти</button>
+        </form>
+    {% endif %}
+
+    <div class="form-container">
+        <div id="formErrors" class="alert-error" style="display: none; margin-bottom: 1.5rem;"></div>
+        <div class="form-header">
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+            <h2>Перевод средств</h2>
+            <p>Введите данные для проведения транзакции</p>
+        </div>
+        
+        <form id="mainForm" action="/" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="innInput">ИНН получателя</label>
+                <input 
+                    type="text" 
+                    id="innInput" 
+                    name="inn" 
+                    required
+                    placeholder="10 или 12 цифр"
+                    pattern="\d{10}|\d{12}"
+                    inputmode="numeric"
+                >
+            </div>
+            
+            <div class="form-group">
+                <label for="amountInput">Сумма перевода (₽)</label>
+                <input 
+                    type="number" 
+                    id="amountInput" 
+                    name="amount" 
+                    required
+                    placeholder="0.00"
+                    step="0.01"
+                    min="1"
+                    inputmode="decimal"
+                >
+            </div>
+            
+            <button type="button" id="openModalBtn">
+                <span class="button-text">Продолжить</span>
+                <svg class="button-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+    
+            <!-- Модальное окно -->
+            <div id="confirmationModal" class="modal">
+                <div class="modal-content">
+                    <div class="error-message" id="modalError"></div>
+                    <h3>Уважаемый(ая) <span id="previewFioUser" class="data-preview"></span>, после подтверждения данных деньги будут считаться переданными ООО "Фарбен-Курск"</h3>
+                    <p>Ваш ИНН: <span id="previewInn" class = "data-preview"></span></p>
+                    <p>Ваше ФИО: <span id="previewFioUserr" class="data-preview"></span></p> <!-- Уникальный ID -->
+                    <p>Передаваемая сумма: <span id="previewAmount" class = "data-preview"></span></p>
+                    <p>ФИО торгового представителя: <span id="previewSeller" class="data-preview"></span></p> <!-- Убрал Django-шаблон -->
+                    <label>
+                        <input type="checkbox" id="confirmationCheckbox" required>
+                        Подтверждаю правильность данных
+                    </label>
+                    <button type="submit" id="submitBtn">Отправить</button>
+                    <button type="button" id="cancelBtn">Отмена</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('confirmationModal');
+        const openModalBtn = document.getElementById('openModalBtn');
+        const errorEl = document.getElementById('formErrors'); // Используем блок над формой
+        let currentFio = '';
+    
+        // Обновление данных в модалке
+        const updateModalData = () => {
+            const inn = document.getElementById('innInput').value;
+            const amount = document.getElementById('amountInput').value;
+            const sellerName = "{{ request.user.name }}";
+    
+            document.getElementById('previewInn').textContent = inn;
+            document.getElementById('previewFioUser').textContent = currentFio;
+            document.getElementById('previewFioUserr').textContent = currentFio;
+            document.getElementById('previewAmount').textContent = `${amount} ₽`;
+            document.getElementById('previewSeller').textContent = sellerName;
+        };
+    
+        // Открытие модалки
+        openModalBtn.addEventListener('click', async () => {
+            errorEl.style.display = 'none'; // Сбрасываем ошибку
+            
+            const inn = document.getElementById('innInput').value.trim();
+            const amount = document.getElementById('amountInput').value.trim();
+    
+            // Валидация 1: Пустые поля
+            if (!inn || !amount) {
+                errorEl.textContent = 'Все поля обязательны для заполнения';
+                errorEl.style.display = 'block';
+                return;
+            }
+    
+            // Валидация 2: Формат ИНН
+            if (!/^\d{10}$|^\d{12}$/.test(inn)) {
+                errorEl.textContent = 'ИНН должен содержать 10 или 12 цифр';
+                errorEl.style.display = 'block';
+                return;
+            }
+    
+            // Валидация 3: Корректность суммы
+            const amountNum = parseFloat(amount);
+            if (isNaN(amountNum)) {
+                errorEl.textContent = 'Некорректный формат суммы';
+                errorEl.style.display = 'block';
+                return;
+            }
+    
+            // Валидация 4: Положительная сумма
+            if (amountNum <= 0) {
+                errorEl.textContent = 'Сумма должна быть больше нуля';
+                errorEl.style.display = 'block';
+                return;
+            }
+    
+            // Проверка ИНН на сервере
+            try {
+                const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                const response = await fetch(`/check-inn/?inn=${inn}`, {
+                    headers: {
+                        'X-CSRFToken': csrftoken,
+                        'Content-Type': 'application/json'
+                    }
+                });
+    
+                if (!response.ok) throw new Error('HTTP error ' + response.status);
+                
+                const data = await response.json();
+                currentFio = data.exists ? data.fio : 'Клиент не найден';
+                document.getElementById('previewFioUser').style.color = data.exists ? '' : 'red';
+                
+                // Показываем модалку только после успешных проверок
+                updateModalData();
+                modal.style.display = 'flex';
+    
+            } catch (error) {
+                console.error('Ошибка:', error);
+                errorEl.textContent = 'Ошибка при проверке ИНН';
+                errorEl.style.display = 'block';
+            }
+        });
+    
+        // Закрытие модалки
+        document.getElementById('cancelBtn').addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    
+        // Обновление ФИО в реальном времени
+        document.getElementById('innInput').addEventListener('input', async function() {
+            const inn = this.value;
+            if (inn.length === 10 || inn.length === 12) {
+                try {
+                    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                    const response = await fetch(`/check-inn/?inn=${inn}`, {
+                        headers: {
+                            'X-CSRFToken': csrftoken,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    const data = await response.json();
+                    currentFio = data.exists ? data.fio : 'Клиент не найден';
+                    document.getElementById('previewFioUser').style.color = data.exists ? '' : 'red';
+                    
+                } catch(error) {
+                    console.error('Ошибка проверки ИНН:', error);
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

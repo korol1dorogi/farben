@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .auth-box {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 1.8rem;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .links {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .error:empty {
+        display: none !important;
+    }
+        .error {
+        background: #ffebee; /* Светло-красный фон */
+        color: #c62828; /* Темно-красный текст */
+        padding: 12px 20px;
+        border-radius: 8px;
+        border: 1px solid #ffcdd2;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        animation: slideIn 0.3s ease-out;
+        box-shadow: 0 2px 8px rgba(198, 40, 40, 0.1);
+    }
+
+    .error::before {
+        content: '❗'; /* Иконка предупреждения */
+        font-size: 1.2rem;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+        @media (max-width: 480px) {
+            .auth-box {
+                padding: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-box">
+        <h2>Вход в систему</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="email" placeholder="Email торгового представителя" required name="email">
+            </div>
+            <div class="input-group">
+                <input type="password" placeholder="Пароль" required name="password">
+            </div>
+            <button type="submit">Войти</button>
+            {% if error %}
+            <div class="error">{{ error }}</div>
+            {% endif %}
+            <div class="links">
+                <a href="#">Забыли пароль?</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
